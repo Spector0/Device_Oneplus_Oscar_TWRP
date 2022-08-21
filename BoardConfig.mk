@@ -167,5 +167,4 @@ TW_EXCLUDE_APEX := true
 PLATFORM_VERSION := 12
 PLATFORM_VERSION_LAST_STABLE := 12
 TW_HAS_EDL_MODE := true
-TW_LOAD_VENDOR_MODULES := "focaltech_touch.ko adsp_loader_dlkm.ko qti_battery_charger_main.ko exfat.ko"
 TW_BATTERY_SYSFS_WAIT_SECONDS := 5
