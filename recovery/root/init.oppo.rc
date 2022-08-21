@@ -1,0 +1,36 @@
+##################################################################################
+### VENDOR_EDIT, OPPO All rights reserved.
+###
+### File: - init.oppo.rc
+### Author: jiangyg@PM
+###
+### ------------------------------- Revision History: ----------------------------
+### <author>                        <data>       <version>   <desc>
+### ------------------------------------------------------------------------------
+### jiangyg@PM                     2013-10-21                Create this file
+##################################################################################
+
+on boot
+#ifdef VENDOR_EDIT
+#Fuchun.Liao@BSP.CHG.Basic 2019/09/30 modify for enable pmicwd
+	write /proc/pmicWd "1 254 7"
+#endif /* VENDOR_EDIT */
+#ifdef OPLUS_FEATURE_ACM
+#Yuwei.Guan@BSP.Kernel.FS,2020/07/08, Add for acm
+	chmod 0666 /dev/acm
+#endif /* OPLUS_FEATURE_ACM */
+
+#ifdef VENDOR_EDIT
+#Jianchao.Shi@Mobile.BSP.CHG 2018/03/20, sjc Add for bsp criticallog
+service bspCriticalLog /system_ext/bin/bspCriticalLog
+	user system
+	group system
+	class main
+#endif
+
+#ifdef OPLUS_FEATURE_MEMLEAK_DETECT
+#Hailong.Liu@ANDROID.MM, 2020/03/18, add for svelte logger
+on boot
+	chown system system /dev/svelte_log
+	chmod 0622 /dev/svelte_log
+#endif /* OPLUS_FEATURE_MEMLEAK_DETECT */

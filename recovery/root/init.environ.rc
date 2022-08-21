@@ -1,0 +1,38 @@
+# set up the global environment
+on early-init
+    export ANDROID_BOOTLOGO 1
+    export ANDROID_ROOT /system
+    export ANDROID_ASSETS /system/app
+    export ANDROID_DATA /data
+    export ANDROID_STORAGE /storage
+    export ANDROID_ART_ROOT /apex/com.android.art
+    export ANDROID_I18N_ROOT /apex/com.android.i18n
+    export ANDROID_TZDATA_ROOT /apex/com.android.tzdata
+    export EXTERNAL_STORAGE /sdcard
+    export ASEC_MOUNTPOINT /mnt/asec
+    export BOOTCLASSPATH /apex/com.android.art/javalib/core-oj.jar:/apex/com.android.art/javalib/core-libart.jar:/apex/com.android.art/javalib/core-icu4j.jar:/apex/com.android.art/javalib/okhttp.jar:/apex/com.android.art/javalib/bouncycastle.jar:/apex/com.android.art/javalib/apache-xml.jar:/system/framework/framework.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-atb-backward-compatibility.jar:/system/framework/oplus-framework.jar:/system/framework/oplus-support-wrapper.jar:/system/framework/tcmiface.jar:/system/framework/telephony-ext.jar:/system/framework/qcom.fmradio.jar:/system/framework/QPerformance.jar:/system/framework/UxPerformance.jar:/apex/com.android.conscrypt/javalib/conscrypt.jar:/apex/com.android.media/javalib/updatable-media.jar:/apex/com.android.mediaprovider/javalib/framework-mediaprovider.jar:/apex/com.android.os.statsd/javalib/framework-statsd.jar:/apex/com.android.permission/javalib/framework-permission.jar:/apex/com.android.sdkext/javalib/framework-sdkextensions.jar:/apex/com.android.wifi/javalib/framework-wifi.jar:/apex/com.android.tethering/javalib/framework-tethering.jar
+    export DEX2OATBOOTCLASSPATH /apex/com.android.art/javalib/core-oj.jar:/apex/com.android.art/javalib/core-libart.jar:/apex/com.android.art/javalib/core-icu4j.jar:/apex/com.android.art/javalib/okhttp.jar:/apex/com.android.art/javalib/bouncycastle.jar:/apex/com.android.art/javalib/apache-xml.jar:/system/framework/framework.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-atb-backward-compatibility.jar:/system/framework/oplus-framework.jar:/system/framework/oplus-support-wrapper.jar:/system/framework/tcmiface.jar:/system/framework/telephony-ext.jar:/system/framework/qcom.fmradio.jar:/system/framework/QPerformance.jar:/system/framework/UxPerformance.jar
+    export SYSTEMSERVERCLASSPATH /system/framework/com.android.location.provider.jar:/system/framework/services.jar:/system/framework/ethernet-service.jar:/system/framework/oplus-services.jar:/system/framework/oplus-service-jobscheduler.jar:/apex/com.android.permission/javalib/service-permission.jar:/apex/com.android.wifi/javalib/service-wifi.jar:/apex/com.android.ipsec/javalib/android.net.ipsec.ike.jar
+    
+    
+    
+    
+on early-init
+    export MY_CUSTOM_ROOT /my_custom
+    export MY_SPECIAL_PRELOAD_ROOT /special_preload
+    export MY_CARRIER_ROOT /my_carrier
+    export MY_REGION_ROOT /my_region
+    export MY_COMPANY_ROOT /my_company
+    export MY_ENGINEER_ROOT /my_engineering
+    export MY_ENGINEERING_ROOT /my_engineering
+    export MY_PRODUCT_ROOT /my_product
+    export MY_VERSION_ROOT /my_version
+    export MY_OPERATOR_ROOT /my_carrier
+    export MY_COUNTRY_ROOT /my_region
+    export MY_ODM_ROOT /odm
+    export MY_PRELOAD_ROOT /my_preload
+    export MY_HEYTAP_ROOT /my_heytap
+    export MY_STOCK_ROOT /my_stock
+    export MY_MANIFEST_ROOT /my_manifest
+    export MY_BIGBALL_ROOT /my_bigball
+    #END_EUCLID_PATH
