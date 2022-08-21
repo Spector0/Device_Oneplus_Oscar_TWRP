@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/qualcomm/holi
+DEVICE_PATH := device/oneplus/oscar
 
 # Architecture
 TARGET_ARCH := arm64
@@ -36,7 +36,7 @@ ENABLE_SCHEDBOOST := true
 
 #TODO:
 # Bootloader
-PRODUCT_PLATFORM := lahaina
+PRODUCT_PLATFORM := holi
 TARGET_BOOTLOADER_BOARD_NAME := $(PRODUCT_RELEASE_NAME)
 TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
@@ -45,8 +45,7 @@ TARGET_USES_UEFI := true
 TARGET_BOARD_PLATFORM := holi
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno619
 
-# Kernel
-#TODO: VENDOR_CMDLINE := "console=ttyMSM0,115200n8 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=0 loop.max_part=7 cgroup.memory=nokmem,nosocket pcie_ports=compat loop.max_part=7 iptable_raw.raw_before_defrag=1 ip6table_raw.raw_before_defrag=1 buildvariant=user reboot=panic_warm androidboot.init_fatal_reboot_target=recovery androidboot.selinux=permissive"
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0x04C8C000 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=4e00000.dwc3 swiotlb=0 loop.max_part=7 cgroup.memory=nokmem,nosocket iptable_raw.raw_before_defrag=1 ip6table_raw.raw_before_defrag=1 kpti=off buildvariant=user androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE          := 0x00000000
 TARGET_KERNEL_ARCH := arm64
@@ -62,7 +61,7 @@ BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE) --board ""
 
 
 # Kenel dtb
-# BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/$(PRODUCT_RELEASE_NAME)/dtb
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 
@@ -118,8 +117,8 @@ TARGET_COPY_OUT_VENDOR := vendor
 
 #TODO:
 #Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_haydn
-TARGET_RECOVERY_DEVICE_MODULES := libinit_haydn
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_oscar
+TARGET_RECOVERY_DEVICE_MODULES := libinit_oscar
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 
 # Recovery
@@ -160,9 +159,6 @@ TW_USE_TOOLBOX := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_MAX_BRIGHTNESS := 2047
-ifeq ($(TW_DEFAULT_LANGUAGE),)
-TW_DEFAULT_LANGUAGE := zh_CN
-endif
 TW_DEFAULT_BRIGHTNESS := 200
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
@@ -171,9 +167,5 @@ TW_EXCLUDE_APEX := true
 PLATFORM_VERSION := 12
 PLATFORM_VERSION_LAST_STABLE := 12
 TW_HAS_EDL_MODE := true
-TW_SUPPORT_INPUT_AIDL_HAPTICS :=true
-TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
-TW_SUPPORT_INPUT_AIDL_HAPTICS_FIX_OFF := true
 TW_LOAD_VENDOR_MODULES := "focaltech_touch.ko adsp_loader_dlkm.ko qti_battery_charger_main.ko exfat.ko"
-TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone20/temp"
 TW_BATTERY_SYSFS_WAIT_SECONDS := 5

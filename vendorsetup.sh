@@ -16,5 +16,5 @@
 # limitations under the License.
 #
 
-add_lunch_combo twrp_holi-userdebug
-add_lunch_combo twrp_holi-eng
+add_lunch_combo twrp_oscar-userdebug
+add_lunch_combo twrp_oscar-eng

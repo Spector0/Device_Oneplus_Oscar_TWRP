@@ -15,4 +15,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_holi.mk
+    $(LOCAL_DIR)/twrp_oscar.mk

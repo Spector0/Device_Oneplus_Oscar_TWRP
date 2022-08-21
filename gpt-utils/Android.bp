@@ -16,7 +16,7 @@
 
 
 cc_library {
-    name: "libgptutils.xiaomi_sm8350",
+    name: "libgptutils.holi",
     vendor: true,
     recovery_available: true,
     shared_libs: [
