@@ -16,6 +16,8 @@
 # limitations under the License.
 #
 
+DEVICE_PATH := device/qualcomm/oscar
+
 # Release name
 PRODUCT_RELEASE_NAME := oscar
 
