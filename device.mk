@@ -47,5 +47,4 @@ PRODUCT_SOONG_NAMESPACES += \
 
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-TWRP_REQUIRED_MODULES += magisk_prebuilt \
-oos_prebuilt
+TWRP_REQUIRED_MODULES += oos_prebuilt
