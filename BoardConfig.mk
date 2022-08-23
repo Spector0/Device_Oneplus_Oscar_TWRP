@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/oneplus/oscar
+DEVICE_PATH := device/qualcomm/oscar
 
 # Architecture
 TARGET_ARCH := arm64
