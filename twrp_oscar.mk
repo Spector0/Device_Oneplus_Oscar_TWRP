@@ -31,4 +31,3 @@ PRODUCT_NAME := twrp_oscar
 PRODUCT_BRAND := qti
 PRODUCT_MODEL := qti
 PRODUCT_MANUFACTURER := qualcomm
-PRODUCT_RELEASE_NAME := qti qti
