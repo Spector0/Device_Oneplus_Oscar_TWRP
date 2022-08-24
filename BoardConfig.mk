@@ -146,9 +146,7 @@ TW_INCLUDE_LIBRESETPROP := true
 			     
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
-ifeq ($(TW_DEVICE_VERSION),)
-TW_DEVICE_VERSION=12.0
-endif
+TW_VERSION := ALPHA_1
 TW_Y_OFFSET := 104
 TW_H_OFFSET := -104
 RECOVERY_SDCARD_ON_DATA := true
