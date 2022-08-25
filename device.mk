@@ -36,6 +36,11 @@ PRODUCT_PACKAGES += \
     bootctrl.holi.recovery \
     android.hardware.boot@1.1-impl-qti.recovery
 
+# qcom standard decryption
+PRODUCT_PACKAGES += \
+    qcom_decrypt \
+    qcom_decrypt_fbe
+
 # SHIPPING API
 PRODUCT_SHIPPING_API_LEVEL := 30
 # VNDK API
