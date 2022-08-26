@@ -143,6 +143,7 @@ PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 
 #EXTRAS
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko"
 
 # Tool
 TW_INCLUDE_REPACKTOOLS := true
@@ -150,7 +151,7 @@ TW_INCLUDE_RESETPROP := true
 #TW_INCLUDE_LIBRESETPROP := true
 
 #TWRP FRAMERATE
-#TW_FRAMERATE := 60
+TW_FRAMERATE := 60
 			     
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
@@ -162,6 +163,7 @@ TW_H_OFFSET := -104
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
 TW_USE_TOOLBOX := true
