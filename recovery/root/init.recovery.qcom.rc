@@ -42,8 +42,14 @@ on init
     mkdir /dev/fscklogs 0770 root system
     
 on boot
-    setprop sys.usb.config adb
+    setprop sys.usb.config mtp,adb
     
+on property:twrp.modules.loaded=true
+    # Load ADSP firmware for PMIC
+    wait /sys/kernel/boot_adsp/boot
+    write /sys/kernel/boot_adsp/boot 1
+    wait /sys/class/power_supply/battery
+
 # Set fscklog permission
     chown root system /dev/fscklogs/log
     chmod 0770 /dev/fscklogs/log
@@ -55,3 +61,6 @@ on property:ro.boot.usbcontroller=*
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    # Mount firmware
+    mkdir /firmware
+    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
