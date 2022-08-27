@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/qualcomm/oscar
+DEVICE_PATH := device/oneplus/oscar
 
 # Architecture
 TARGET_ARCH := arm64
@@ -169,8 +169,7 @@ TW_INCLUDE_NTFS_3G := true
 TW_USE_TOOLBOX := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
-#TODO:
-#W_CUSTOM_CPU_TEMP_PATH := "sys/class/thermal/thermal_zone
+TW_CUSTOM_CPU_TEMP_PATH := "sys/class/thermal/thermal_zone0/temp
 TW_MAX_BRIGHTNESS := 4095
 TW_DEFAULT_BRIGHTNESS := 1023
 TWRP_INCLUDE_LOGCAT := true
