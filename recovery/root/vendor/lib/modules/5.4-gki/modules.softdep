@@ -1,0 +1,13 @@
+# Soft dependencies extracted from modules themselves.
+softdep msm_vidc pre: subsys-pil-tz
+softdep service_locator pre: qrtr
+softdep msm_kgsl pre: qcom-arm-smmu-mod nvmem_qfprom
+softdep gf_qcom pre:oplus_fp_common
+softdep qsee_ipc_irq_bridge pre: qcom_ipcc
+softdep dwc3_msm pre: phy-generic phy-msm-snps-hs phy-msm-ssusb-qmp eud
+softdep machine_dlkm pre: bt_fm_slim
+softdep ipam pre: subsys-pil-tz
+softdep ipam pre: qcom-arm-smmu-mod
+softdep leds_qti_tri_led pre: pwm-qti-lpg
+softdep tcpci_late_sync pre: oplus_chg
+softdep spss_utils pre: subsys-pil-tz

@@ -1,0 +1,2 @@
+# Soft dependencies extracted from modules themselves.
+softdep pinctrl_msm pre: qcom-pdc
