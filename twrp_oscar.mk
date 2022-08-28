@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/qualcomm/oscar
+DEVICE_PATH := device/oneplus/oscar
 
 # Release name
 PRODUCT_RELEASE_NAME := oscar
