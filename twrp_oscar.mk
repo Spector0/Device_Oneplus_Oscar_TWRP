@@ -30,6 +30,6 @@ TARGET_OTA_ASSERT_DEVICE := oscar
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := oscar
 PRODUCT_NAME := twrp_oscar
-PRODUCT_BRAND := qti
-PRODUCT_MODEL := qti
-PRODUCT_MANUFACTURER := qualcomm
+PRODUCT_BRAND := OnePlus
+PRODUCT_MODEL := CPH2381
+PRODUCT_MANUFACTURER := OnePlus
