@@ -102,7 +102,12 @@ BOARD_SUPER_PARTITION_SIZE := 11190403072
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 # BOARD_QTI_DYNAMIC_PARTITIONS_SIZ=BOARD_SUPER_PARTITION_SIZE - 4MB
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 5595201536
-BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := product vendor system system_ext odm
+BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := \
+    system \
+    system_ext \
+    vendor \
+    product \
+    odm
 
 # System as root
 BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
@@ -119,7 +124,7 @@ TARGET_COPY_OUT_VENDOR := vendor
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 TARGET_RECOVERY_DEVICE_MODULES += \
     android.hidl.base@1.0 \
     bootctrl.$(TARGET_BOARD_PLATFORM).recovery
@@ -143,7 +148,6 @@ PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 
 #EXTRAS
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko"
 
 # Tool
 TW_INCLUDE_REPACKTOOLS := true
@@ -156,7 +160,7 @@ TW_FRAMERATE := 60
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
 ifeq ($(TW_DEVICE_VERSION),)
-TW_DEVICE_VERSION=12.0
+TW_DEVICE_VERSION=Alpha_v1
 endif
 TW_Y_OFFSET := 104
 TW_H_OFFSET := -104

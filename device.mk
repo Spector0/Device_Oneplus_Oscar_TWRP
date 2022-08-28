@@ -36,6 +36,9 @@ PRODUCT_PACKAGES += \
     bootctrl.holi.recovery \
     android.hardware.boot@1.1-impl-qti.recovery
 
+#Load module    
+TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko"
+
 # qcom decryption
 PRODUCT_PACKAGES_ENG += \
     qcom_decrypt \
