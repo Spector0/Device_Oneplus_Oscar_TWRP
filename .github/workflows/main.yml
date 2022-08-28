@@ -78,3 +78,14 @@ jobs:
               curl -sL https://git.io/file-transfer | sh
               ./transfer wet $ZIP_NAME
               ./transfer wet boot.img
+
+- name: Upload to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: work/out/target/product/oscar/TWRP_OSCAR_A12.1-ALPAHA.zip
+        name: TWRP_OSCAR_A12.1
+        tag_name: Alpha_v1
+        body: |
+          Manifest: ${{ github.event.inputs.MANIFEST_BRANCH }}
+          Device: ${{ github.event.inputs.DEVICE_NAME }}
+          Target: ${{ github.event.inputs.BUILD_TARGET }}.img
