@@ -65,7 +65,8 @@ jobs:
          run: |
               cd work
               . build/envsetup.sh
-              lunch twrp_$DEVICE-eng 
+              repopick 5405 5540
+              lunch twrp_$DEVICE-eng
               rm -rf .repo/
               mka $TARGET
              
