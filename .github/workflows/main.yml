@@ -78,8 +78,6 @@ jobs:
               curl -sL https://git.io/file-transfer | sh
               ./transfer wet $ZIP_NAME
               ./transfer wet boot.img
-
-        - name: Upload to Release
           uses: softprops/action-gh-release@v1
           with:
             files: work/out/target/product/oscar/TWRP_OSCAR_A12.1-ALPAHA.zip
