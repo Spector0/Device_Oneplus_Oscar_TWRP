@@ -86,8 +86,8 @@ jobs:
             name: TWRP_OSCAR_A12.1
             tag_name: Alpha_v1
             body: |
-              Manifest: ${{ github.event.inputs.MANIFEST_BRANCH }}
-              Device: ${{ github.event.inputs.DEVICE_NAME }}
-              Target: ${{ github.event.inputs.BUILD_TARGET }}.img
+              Manifest: TWRP12.1
+              Device: Oscar
+              Target: boot.img
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
