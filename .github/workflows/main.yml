@@ -71,6 +71,7 @@ jobs:
               mka $TARGET
              
        - name: Uploading recovery-boot image
+         uses: softprops/action-gh-release@v1
          run: |
               cd work/out/target/product/$DEVICE
               sudo zip -r9 $ZIP_NAME boot.img
@@ -78,7 +79,6 @@ jobs:
               curl -sL https://git.io/file-transfer | sh
               ./transfer wet $ZIP_NAME
               ./transfer wet boot.img
-          uses: softprops/action-gh-release@v1
           with:
             files: work/out/target/product/oscar/TWRP_OSCAR_A12.1-ALPAHA.zip
             name: TWRP_OSCAR_A12.1
