@@ -46,6 +46,11 @@ on boot
     
 on property:twrp.modules.loaded=true
     # Load ADSP firmware for PMIC
+    insmod /vendor/lib/modules/q6_pdr_dlkm.ko
+    insmod /vendor/lib/modules/q6_notifier_dlkm.ko
+    insmod /vendor/lib/modules/snd_event_dlkm.ko
+    insmod /vendor/lib/modules/apr_dlkm.ko
+    insmod /vendor/lib/modules/adsp_loader_dlkm.ko
     wait /sys/kernel/boot_adsp/boot
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
@@ -56,8 +61,6 @@ on property:twrp.modules.loaded=true
 
 on property:ro.boot.usbcontroller=*
     setprop sys.usb.controller ${ro.boot.usbcontroller}
-    write /sys/class/udc/${ro.boot.usbcontroller}/device/../mode peripheral
-
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice

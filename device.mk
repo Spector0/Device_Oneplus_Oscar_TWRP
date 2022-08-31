@@ -37,7 +37,7 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl-qti.recovery
 
 #Load module    
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko"
+TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko apr_dlkm.ko q6_notifier_dlkm.ko q6_pdr_dlkm.ko snd_event_dlkm.ko"
 
 # qcom decryption
 PRODUCT_PACKAGES_ENG += \
