@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/qualcomm/oscar
+DEVICE_PATH := device/oneplus/oscar
 
 # Release name
 PRODUCT_RELEASE_NAME := oscar
@@ -30,6 +30,6 @@ TARGET_OTA_ASSERT_DEVICE := oscar
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := oscar
 PRODUCT_NAME := twrp_oscar
-PRODUCT_BRAND := qti
-PRODUCT_MODEL := qti
-PRODUCT_MANUFACTURER := qualcomm
+PRODUCT_BRAND := OnePlus
+PRODUCT_MODEL := CPH2381
+PRODUCT_MANUFACTURER := OnePlus

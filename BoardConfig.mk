@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/qualcomm/oscar
+DEVICE_PATH := device/oneplus/oscar
 
 # Architecture
 TARGET_ARCH := arm64
@@ -34,7 +34,6 @@ TARGET_USES_64_BIT_BINDER := true
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
-#TODO:
 # Bootloader
 PRODUCT_PLATFORM := holi
 TARGET_BOOTLOADER_BOARD_NAME := $(PRODUCT_RELEASE_NAME)
@@ -59,6 +58,7 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/$(PRODUCT_RELEASE_NAME)/kernel
 
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE) --board ""
+BOARD_MKBOOTIMG_ARGS += --cmdline "twrpfastboot=1"
 
 
 # Kenel dtb
@@ -102,7 +102,12 @@ BOARD_SUPER_PARTITION_SIZE := 11190403072
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 # BOARD_QTI_DYNAMIC_PARTITIONS_SIZ=BOARD_SUPER_PARTITION_SIZE - 4MB
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 5595201536
-BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := product vendor system system_ext odm
+BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := \
+    system \
+    system_ext \
+    vendor \
+    product \
+    odm
 
 # System as root
 BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
@@ -119,7 +124,7 @@ TARGET_COPY_OUT_VENDOR := vendor
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 TARGET_RECOVERY_DEVICE_MODULES += \
     android.hidl.base@1.0 \
     bootctrl.$(TARGET_BOARD_PLATFORM).recovery
@@ -143,7 +148,6 @@ PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 
 #EXTRAS
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko"
 
 # Tool
 TW_INCLUDE_REPACKTOOLS := true
@@ -156,21 +160,23 @@ TW_FRAMERATE := 60
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
 ifeq ($(TW_DEVICE_VERSION),)
-TW_DEVICE_VERSION=12.0
+TW_DEVICE_VERSION=Alpha_v1
 endif
 TW_Y_OFFSET := 104
 TW_H_OFFSET := -104
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
+USE_RECOVERY_INSTALLER := true
+RECOVERY_INSTALLER_PATH := $(DEVICE_PATH)/installer
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
+TW_NO_EXFAT_FUSE := true
 TW_USE_TOOLBOX := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
-#TODO:
-#W_CUSTOM_CPU_TEMP_PATH := "sys/class/thermal/thermal_zone
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone26/temp"
 TW_MAX_BRIGHTNESS := 4095
 TW_DEFAULT_BRIGHTNESS := 1023
 TWRP_INCLUDE_LOGCAT := true
