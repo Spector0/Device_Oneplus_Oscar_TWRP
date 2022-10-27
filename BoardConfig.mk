@@ -39,6 +39,7 @@ PRODUCT_PLATFORM := holi
 TARGET_BOOTLOADER_BOARD_NAME := $(PRODUCT_RELEASE_NAME)
 TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
+TARGET_NO_RECOVERY := true
 
 # Platform
 TARGET_BOARD_PLATFORM := holi
@@ -62,9 +63,9 @@ BOARD_MKBOOTIMG_ARGS += --cmdline "twrpfastboot=1"
 
 
 # Kenel dtb
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/$(PRODUCT_RELEASE_NAME)/dtb
-BOARD_MKBOOTIMG_ARGS += --dtb $(BOARD_PREBUILT_DTBIMAGE_DIR)
+#BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/$(PRODUCT_RELEASE_NAME)/dtb
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 
 # Kenel dtbo
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/$(PRODUCT_RELEASE_NAME)/dtbo.img
@@ -130,8 +131,8 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 TARGET_RECOVERY_DEVICE_MODULES += \
     android.hidl.base@1.0 \
-    bootctrl.$(TARGET_BOARD_PLATFORM).recovery
-
+    bootctrl.$(TARGET_BOARD_PLATFORM).recovery \
+    libion
 ALLOW_MISSING_DEPENDENCIES := true
 
 #NETWORK
@@ -190,3 +191,19 @@ TW_HAS_EDL_MODE := true
 TW_BATTERY_SYSFS_WAIT_SECONDS := 5
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/android.hidl.base@1.0.so \
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so
+TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko apr_dlkm.ko q6_notifier_dlkm.ko q6_pdr_dlkm.ko snd_event_dlkm.ko"    
+
+# Custom TWRP Versioning
+ifneq ($(wildcard device/common/version-info/.),)
+    # Uncomment the below line to use custom device version
+    include device/common/version-info/custom_twrp_version.mk
+
+    # version prefix is optional - the default value is "LOCAL" if nothing is set in device tree
+    CUSTOM_TWRP_VERSION_PREFIX := Alpha
+
+    ifeq ($(CUSTOM_TWRP_VERSION),)
+        CUSTOM_TWRP_VERSION := $(shell date +%Y%m%d)-01
+    endif
+endif    
