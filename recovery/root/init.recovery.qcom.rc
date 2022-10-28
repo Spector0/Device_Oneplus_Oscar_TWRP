@@ -46,11 +46,11 @@ on boot
     
 on property:twrp.modules.loaded=true
     # Load ADSP firmware for PMIC
-    insmod /vendor/lib/modules/q6_pdr_dlkm.ko
-    insmod /vendor/lib/modules/q6_notifier_dlkm.ko
-    insmod /vendor/lib/modules/snd_event_dlkm.ko
-    insmod /vendor/lib/modules/apr_dlkm.ko
-    insmod /vendor/lib/modules/adsp_loader_dlkm.ko
+    insmod /vendor/lib/modules/1.1/q6_pdr_dlkm.ko
+    insmod /vendor/lib/modules/1.1/q6_notifier_dlkm.ko
+    insmod /vendor/lib/modules/1.1/snd_event_dlkm.ko
+    insmod /vendor/lib/modules/1.1/apr_dlkm.ko
+    insmod /vendor/lib/modules/1.1/adsp_loader_dlkm.ko
     wait /sys/kernel/boot_adsp/boot
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
