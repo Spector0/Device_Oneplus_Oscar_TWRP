@@ -1,91 +1,74 @@
 #!/sbin/sh
-# TWRP A/B Installer Backend
-# by osm0sis, Dees_Troy and topjohnwu
+# LazyFlasher installer backend (for helper functions only)
+# Heavily modified by Dees_Troy and osm0sis
 
-OUTFD=/proc/self/fd/$2;
-ZIPFILE="$3";
+tmp=/dev/tmp/twrp-install
 
-ui_print() {
-  if $BOOTMODE; then
-    echo "$1";
-  else
-    echo -e "ui_print $1\nui_print" >> $OUTFD;
-  fi;
-}
-abort() { ui_print " "; ui_print "$1"; exit 1; }
-
-# detect Magisk app/booted flashing
-BOOTMODE=false;
-ps | grep zygote | grep -v grep >/dev/null && BOOTMODE=true;
+# detect when flashing in Magisk Manager
+ps | grep zygote | grep -v grep >/dev/null && BOOTMODE=true || BOOTMODE=false;
 $BOOTMODE || ps -A 2>/dev/null | grep zygote | grep -v grep >/dev/null && BOOTMODE=true;
 
-ui_print "########################################";
-ui_print "# TWRP installer for OnePlus With A/B  #";
-ui_print "########################################";
-ui_print " ";
+if [ "$3" ]; then
+	zip=$3
+	console=/proc/$$/fd/$2
+fi
 
-# /dev/tmp is safe for both booted and recovery installs
-tmp=/dev/tmp/twrp-install;
-# target partition without the slot suffix
-if [ -e /dev/block/bootdevice/by-name/recovery_b ]; then
-  target=/dev/block/bootdevice/by-name/recovery;
-else
-  target=/dev/block/bootdevice/by-name/boot;
-fi;
-name=$(basename $target);
+print() {
+	if $BOOTMODE; then
+		echo "$1"
+	else
+		if [ "$1" ]; then
+			echo "ui_print $1" > "$console"
+		else
+			echo "ui_print  " > "$console"
+		fi
+	fi
+}
 
-ui_print "Unpacking the installer...";
-rm -rf $tmp;
-mkdir -p $tmp;
-unzip -o "$ZIPFILE" -d $tmp || abort "Failed to extract zip!";
+extract() {
+	rm -rf "$2"
+	mkdir -p "$2"
+	unzip -o "$1" -d "$2" || abort "Failed to extract zip to $2!"
+}
 
-cd $tmp;
-recoverycpio=`(ls ramdisk-twrp.cpio || ls ramdisk-recovery.cpio) 2>/dev/null`;
-recoveryimg=`(ls twrp*.img || ls TWRP*.img || ls recovery.img) 2>/dev/null`;
-[ "$recoverycpio" ] || [ "$recoveryimg" ] || abort "No TWRP ramdisk/image found in zip!";
+print "#########################################"
+print "#      TWRP installer for OnePlus Nord CE2 lite     #"
+print "#########################################"
 
-tool=$tmp/magiskboot;
-chmod 755 $tool;
+# Unpack the installer
+[ "$zip" ] && {
+	print "Unpacking the installer..."
+	extract "$zip" "$tmp"
+	print
+}
+cd "$tmp"
+toolname="/magiskboot"
+tool="$tmp$toolname"
+targetfile="/boot.img"
+target="$tmp$targetfile"
+recoverycpio=`(ls ramdisk-twrp.cpio || ls ramdisk-recovery.cpio) 2>/dev/null`
 
-ui_print " ";
-for slot in _a _b; do
-  if [ "$recoverycpio" ]; then
-    ui_print "Running image patcher on $name$slot...";
-    dd bs=1048576 if=$target$slot of=boot.img || abort "Failed to dump image!";
-    $tool unpack -h boot.img || abort "Failed to unpack image!";
+chmod 755 "$tool"
 
-    # kernel string want_initramfs -> skip_initramfs (Magisk)
-    $tool hexpatch kernel 77616E745F696E697472616D6673 736B69705F696E697472616D6673;
-    # kernel string trip_initramfs -> skip_initramfs (SuperSU)
-    $tool hexpatch kernel 747269705F696E697472616D6673 736B69705F696E697472616D6673;
+for slot in a b; do
+	print "Running boot image patcher on slot $slot..."
+	dd if=/dev/block/bootdevice/by-name/boot_$slot "of=$target"
+	"$tool" unpack -h boot.img
+	cp -f $recoverycpio ramdisk.cpio
+	"$tool" repack boot.img
+	dd if=new-boot.img of=/dev/block/bootdevice/by-name/boot_$slot
 
-    # boot.img header cmdline remove skip_override (flar2 patch)
-    sed -i "s|$(grep '^cmdline=' header | cut -d= -f2-)|$(grep '^cmdline=' header | cut -d= -f2- | sed -e 's/skip_override//' -e 's/  */ /g' -e 's/[ \t]*$//')|" header;
+	"$tool" cleanup
+	rm -f new-boot.img
+done
 
-    cp -f $recoverycpio ramdisk.cpio;
-    $tool repack boot.img || abort "Failed to repack image!";
-    $tool cleanup;
-  else
-    ui_print "Flashing image to $name$slot...";
-    cp -f $recoveryimg new-boot.img;
-  fi;
+print
+print "Boot image patching complete!"
 
-  blockdev --setrw $target$slot;
-  cat new-boot.img /dev/zero > $target$slot 2>/dev/null || true;
-  rm -f new-boot.img;
-done;
+cd /
+rm -rf /dev/tmp
 
-if [ "$recoverycpio" ]; then
-  ui_print " ";
-  ui_print "Image patching complete!";
-fi;
-
-cd /;
-rm -rf /dev/tmp;
-
-ui_print " ";
-ui_print "Done installing TWRP!";
-if [ "$name" != "recovery" ]; then
-  ui_print " ";
-  ui_print "*** NOTE: You are now unrooted! ***";
-fi;
+#cleanup
+print "Done installing TWRP!"
+print
+print "*** NOTE: You are now unrooted! ***"
