@@ -35,9 +35,23 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 PRODUCT_PACKAGES += \
     bootctrl.holi.recovery \
     android.hardware.boot@1.1-impl-qti.recovery
+    
+PRODUCT_PACKAGES += \
+    otapreopt_script \
+    update_engine \
+    update_engine_sideload \
+    update_verifier
 
-#Load module    
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko apr_dlkm.ko q6_notifier_dlkm.ko q6_pdr_dlkm.ko snd_event_dlkm.ko"
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_system=true \
+    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
+    FILESYSTEM_TYPE_system=ext4 \
+    POSTINSTALL_OPTIONAL_system=true
+
+# fastbootd
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd    
 
 # qcom decryption
 PRODUCT_PACKAGES_ENG += \
@@ -48,10 +62,10 @@ PRODUCT_PACKAGES_ENG += \
 PRODUCT_ENFORCE_VINTF_MANIFEST := true
 
 # SHIPPING API
-PRODUCT_SHIPPING_API_LEVEL := 31
+PRODUCT_SHIPPING_API_LEVEL := 30
 
 # VNDK API
-PRODUCT_TARGET_VNDK_VERSION := 31
+PRODUCT_TARGET_VNDK_VERSION := 30
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.dm_default_key.options_format.version=2
@@ -62,4 +76,6 @@ PRODUCT_SOONG_NAMESPACES += \
 
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
-TWRP_REQUIRED_MODULES += oos_prebuilt
+# Copy modules for depmod
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*.ko,$(DEVICE_PATH)/prebuilt,$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules)
+
