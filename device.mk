@@ -77,5 +77,5 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
 # Copy modules for depmod
-PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*.ko,$(DEVICE_PATH)/prebuilt,$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1)
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*.ko,$(DEVICE_PATH)/prebuilt,$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules)
 
