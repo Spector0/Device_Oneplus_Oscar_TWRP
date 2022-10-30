@@ -192,7 +192,7 @@ TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko apr_dlkm.ko q6_notifier_dlkm.ko q
 
 # TWRP zip installer
 USE_RECOVERY_INSTALLER := true
-RECOVERY_INSTALLER_PATH := $(DEVICE_PATH)
+RECOVERY_INSTALLER_PATH := $(DEVICE_PATH)/installer
 
 # Custom TWRP Versioning
 ifneq ($(wildcard device/common/version-info/.),)
