@@ -63,6 +63,8 @@ BOARD_MKBOOTIMG_ARGS += --cmdline "twrpfastboot=1"
 
 
 # Kenel dtb
+
+
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/$(PRODUCT_RELEASE_NAME)/dtb
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 
@@ -192,3 +194,7 @@ TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko apr_dlkm.ko q6_notifier_dlkm.ko q
 ifeq ($(TW_DEVICE_VERSION),)
 TW_DEVICE_VERSION=Beta_v1
 endif
+
+
+
+
