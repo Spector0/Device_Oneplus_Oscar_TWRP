@@ -63,7 +63,6 @@ BOARD_MKBOOTIMG_ARGS += --cmdline "twrpfastboot=1"
 
 
 # Kenel dtb
-#BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/$(PRODUCT_RELEASE_NAME)/dtb
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 
@@ -156,7 +155,6 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 # Tool
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
-#TW_INCLUDE_LIBRESETPROP := true
 
 #TWRP FRAMERATE
 TW_FRAMERATE := 60
@@ -190,19 +188,7 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so
 TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko apr_dlkm.ko q6_notifier_dlkm.ko q6_pdr_dlkm.ko snd_event_dlkm.ko"    
 
-# TWRP zip installer
-USE_RECOVERY_INSTALLER := true
-RECOVERY_INSTALLER_PATH := $(DEVICE_PATH)/installer
-
 # Custom TWRP Versioning
-ifneq ($(wildcard device/common/version-info/.),)
-    # Uncomment the below line to use custom device version
-    include device/common/version-info/custom_twrp_version.mk
-
-    # version prefix is optional - the default value is "LOCAL" if nothing is set in device tree
-    CUSTOM_TWRP_VERSION_PREFIX := SPECTOR
-
-    ifeq ($(CUSTOM_TWRP_VERSION),)
-        CUSTOM_TWRP_VERSION := $(shell date +%Y%m%d)-01
-    endif
-endif    
+ifeq ($(TW_DEVICE_VERSION),)
+TW_DEVICE_VERSION=Beta_v1
+endif
